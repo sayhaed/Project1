@@ -21,18 +21,7 @@ public class Project1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Testing database connection...");
-
-
-		long count = accountRepository.count();
-		System.out.println("Total accounts in DB: " + count);
-
-		List<Account> accounts = accountRepository.findAll();
-		System.out.println("Accounts in DB:");
-
-		for (Account account : accounts) {
-			System.out.println("ID: " + account.getId() + ", Email: " + account.getEmail());
-		}
+		System.out.println("Iniciando aplicacion");
 	}
 
 }
