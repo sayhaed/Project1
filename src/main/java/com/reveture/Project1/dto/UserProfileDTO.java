@@ -1,4 +1,6 @@
 package com.reveture.Project1.dto;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -11,5 +13,7 @@ public class UserProfileDTO {
     private String lastName;
     private String phoneNumber;
     private LocalDate dateOfBirth;
+    @Min(300)
+    @Max(850)
     private int creditScore;
 }
