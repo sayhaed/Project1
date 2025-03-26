@@ -31,9 +31,10 @@ public class UserProfileController {
         return "Admin".equalsIgnoreCase(getCurrentUser().getAccountType().getType());
     }
 
-    //validamos el acceso de admin a este endpoint
+    //validamos el acceso de admin a este endpoint "accountTypeId": 2
+
     @GetMapping()
-    public ResponseEntity<List<UserProfile>> getUserProfiles(@PathVariable Long id) {
+    public ResponseEntity<List<UserProfile>> getUserProfiles() {
         if (!isAdmin()) return ResponseEntity.status(403).build();
         return ResponseEntity.ok(userProfileService.getAllUserDetails());
     }
@@ -47,22 +48,22 @@ public class UserProfileController {
         return ResponseEntity.ok(userProfileService.getUserByUserProfileId(id));
     }
 
-    @PostMapping
-    public ResponseEntity<UserProfile> createUserProfile(@Valid @RequestBody UserProfileDTO userProfileDTO){
+
+    //que haga el post con mi account id actual auth
+    @PostMapping("/me")
+    public ResponseEntity<UserProfile> createProfileForCurrentUser(@Valid @RequestBody UserProfileDTO userProfileDTO) {
+        Account current = getCurrentUser();
+        userProfileDTO.setAccountId(current.getId()); // aseguramos que sea el del logueado
         return ResponseEntity.ok(userProfileService.addUserDetails(userProfileDTO));
     }
 
-
-
-//    @GetMapping("/account/{accountId}")
-//    public ResponseEntity<UserProfile> getUserProfileByAccountId(@PathVariable Long accountId) {
-//        return ResponseEntity.ok(userProfileService.getUserByAccountId(accountId));
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<UserProfile> updateUserProfile(@PathVariable Long id, @Valid @RequestBody UserProfileDTO userProfileDTO) {
-//        return ResponseEntity.ok(userProfileService.updateUserProfile(id, userProfileDTO));
-//    }
+    // 🔐 Solo Admin puede crear perfil para otro usuario
+    @PostMapping("/account/{accountId}")
+    public ResponseEntity<UserProfile> createProfileForAccount(@PathVariable Long accountId, @Valid @RequestBody UserProfileDTO userProfileDTO) {
+        if (!isAdmin()) return ResponseEntity.status(403).build();
+        userProfileDTO.setAccountId(accountId); // forzamos el accountId correcto
+        return ResponseEntity.ok(userProfileService.addUserDetails(userProfileDTO));
+    }
 
     //  Obtener perfil por account id  (admin o dueño)
     /// validamos el acceso de admin a este endpoint
