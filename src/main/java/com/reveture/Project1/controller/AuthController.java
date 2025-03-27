@@ -31,7 +31,7 @@ public class AuthController {
                 )
         );
 
-        // 🔥 Almacenar autenticación en SecurityContextHolder y en la sesión
+        //  Almacenar autenticación en SecurityContextHolder y en la sesión
         SecurityContextHolder.getContext().setAuthentication(authentication);
         session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
