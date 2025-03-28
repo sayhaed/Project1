@@ -60,9 +60,9 @@ public class SecurityConfig {
                 .securityContext(securityContext -> securityContext.securityContextRepository(securityContextRepository())) // 🔥 Habilitar almacenamiento de sesión
                 .logout(logout -> logout
                         .logoutUrl("/api/auth/logout") // 🔥 Configurar la URL de logout
-                        .logoutSuccessUrl("/api/auth/logout-success") // 🔥 Redirigir al usuario después de cerrar sesión
+                        .logoutSuccessUrl("/api/auth/logout-success") // Redirigir al usuario después de cerrar sesión
                         .invalidateHttpSession(true) // 🔥 Invalidar la sesión
-                        .deleteCookies("JSESSIONID") // 🔥 Eliminar cookies de sesión
+                        .deleteCookies("JSESSIONID") // Eliminar cookies de sesión
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
@@ -95,7 +95,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityContextRepository securityContextRepository() {
-        return new HttpSessionSecurityContextRepository(); // 🔥 Mantiene la autenticación en la sesión
+        return new HttpSessionSecurityContextRepository(); // Mantiene la autenticación en la sesión
     }
 
 }
