@@ -56,7 +56,7 @@ private String getMail(){
         }
         return true;}
 /// //////Crete loans
-    @PostMapping()
+    @GetMapping()
     public ResponseEntity<LoanApplication>
 //    public LoanApplication
     createLoan(HttpSession session, @Valid @RequestBody LoanApplicationDTO loanApplicationDTO) {
@@ -88,7 +88,7 @@ private String getMail(){
         }
 /// //////Show loan ByID
 
-@GetMapping({"/id/{id}"})
+@PutMapping({"/id/{id}"})
 public ResponseEntity<LoanApplication> getLoanById(@PathVariable Long id) {
     boolean isAdmin = isAdmin();
     if(!isAdmin) {
@@ -100,15 +100,23 @@ public ResponseEntity<LoanApplication> getLoanById(@PathVariable Long id) {
     return ResponseEntity.ok(loanApplication);
 }
 
-    @GetMapping({"/ids/{id}"})
-    public ResponseEntity<LoanApplication> getLoanByIsd(@PathVariable Long id) {
+    @GetMapping({"/id/{id}/Approve"})
+    public ResponseEntity<?> approveLoan(@PathVariable Long id) {
         boolean isAdmin = isAdmin();
         if(!isAdmin) {
-            String mail = getMail();
-            LoanApplication loanApplication = loanApplicationService.getLoanById(id);
-            return ResponseEntity.ok(loanApplication);
+            return ResponseEntity.status(401).body("You are not allowed to do this action");
         }
-        LoanApplication loanApplication = loanApplicationService.getLoanById(id);
+        LoanApplication loanApplication = loanApplicationService.approveLoan(id);
+        return ResponseEntity.ok(loanApplication);
+    }
+
+    @GetMapping({"/id/{id}/Reject"})
+    public ResponseEntity<?> rejectLoan(@PathVariable Long id) {
+        boolean isAdmin = isAdmin();
+        if(!isAdmin) {
+            return ResponseEntity.status(401).body("You are not allowed to do this action");
+        }
+        LoanApplication loanApplication = loanApplicationService.rejectLoan(id);
         return ResponseEntity.ok(loanApplication);
     }
 

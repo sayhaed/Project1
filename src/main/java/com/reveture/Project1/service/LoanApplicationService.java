@@ -14,7 +14,7 @@ public interface LoanApplicationService{
         List<LoanApplication> getLoansByMail(String mail);
         LoanApplication getLoanById(Long id);
         LoanApplication getLoanByIdAndUser(Long id, String mail);
-        LoanApplication updateLoanById(Long id);
-        LoanApplication approveLoanById(Long id);
+        LoanApplication approveLoan(Long id);
+        LoanApplication rejectLoan(Long id);
 
     }

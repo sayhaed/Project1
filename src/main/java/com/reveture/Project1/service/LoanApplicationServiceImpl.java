@@ -80,10 +80,54 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
                 .orElseThrow(() -> new RuntimeException("There is no loan to show or you are not allowed to see the id: " + id));
     }
     /// ////////// UPDATE LOAN
-    @Override public LoanApplication updateLoanById(Long id){
-        return null;
+    @Override 
+    public LoanApplication approveLoan(Long id){
+        boolean exist = loanApplicationRepository.existsById(id);
+        if (!exist) {
+            throw new RuntimeException("This Loan Doesn't Exist");
+        }
+        LoanApplication loanToUpdate = loanApplicationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("This Loan Doesn't Exist"));
+//
+//        Account account = accountService.getAccountByEmail(email);
+//        UserProfile userProfile = userProfileService.getUserByAccountId(account.getId());
+        Long statusId = 2L;
+        ApplicationStatus applicationStatus = applicationStatusRepository.findById(statusId)
+                .orElseThrow(() -> new RuntimeException("Loan Status not found"));
+//
+//        LoanType loanType = loanTypeRepository.findById(loanApplicationDTO.getLoanType().getId())
+//                .orElseThrow(() -> new RuntimeException("Loan Type not found"));
+//        LoanApplication loanToCreate = new LoanApplication();
+
+        loanToUpdate.setApplicationStatus(applicationStatus);
+//        loanToUpdate.setUserProfile(userProfile);
+//        loanToUpdate.setApplicationDate(LocalDate.now());
+        return  loanApplicationRepository.save(loanToUpdate);
     }
-    @Override public LoanApplication approveLoanById(Long id){
-        return null;
+
+
+    @Override
+    public LoanApplication rejectLoan(Long id){
+        boolean exist = loanApplicationRepository.existsById(id);
+        if (!exist) {
+            throw new RuntimeException("This Loan Doesn't Exist");
+        }
+        LoanApplication loanToUpdate = loanApplicationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("This Loan Doesn't Exist"));
+//
+//        Account account = accountService.getAccountByEmail(email);
+//        UserProfile userProfile = userProfileService.getUserByAccountId(account.getId());
+        Long statusId = 3L;
+        ApplicationStatus applicationStatus = applicationStatusRepository.findById(statusId)
+                .orElseThrow(() -> new RuntimeException("Loan Status not found"));
+//
+//        LoanType loanType = loanTypeRepository.findById(loanApplicationDTO.getLoanType().getId())
+//                .orElseThrow(() -> new RuntimeException("Loan Type not found"));
+//        LoanApplication loanToCreate = new LoanApplication();
+
+        loanToUpdate.setApplicationStatus(applicationStatus);
+//        loanToUpdate.setUserProfile(userProfile);
+//        loanToUpdate.setApplicationDate(LocalDate.now());
+        return  loanApplicationRepository.save(loanToUpdate);
     }
 }

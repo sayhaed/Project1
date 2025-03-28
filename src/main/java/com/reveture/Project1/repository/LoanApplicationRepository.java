@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface LoanApplicationRepository extends JpaRepository<LoanApplication, Long>{
     Optional<List<LoanApplication>> findByUserProfile(UserProfile userProfile);
     Optional<LoanApplication> findByIdAndUserProfile(Long Id, UserProfile userProfile);
+    boolean existsById(Long Id);
+    Optional<LoanApplication> findById(Long id);
 }
