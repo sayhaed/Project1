@@ -19,4 +19,9 @@ public class LoanType {
 
     @Column(name = "loan_type",nullable = false, unique = true, length = 10)
     private String type;
+
+    public LoanType(Long id) {
+        this.id = id;
+    }
+
 }

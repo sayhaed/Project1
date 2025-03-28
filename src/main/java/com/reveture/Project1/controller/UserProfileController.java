@@ -22,6 +22,8 @@ public class UserProfileController {
     @Autowired
     private AccountService accountService;
 
+
+    //
     private Account getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return accountService.getAccountByEmail(email);

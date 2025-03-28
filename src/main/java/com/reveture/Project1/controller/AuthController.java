@@ -43,8 +43,8 @@ public class AuthController {
     public ResponseEntity<?> checkSession(HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        System.out.println("🔥 Estado de la sesión: " + session.getId());
-        System.out.println("🔍 Authentication: " + authentication);
+//        System.out.println("🔥 Estado de la sesión: " + session.getId());
+//        System.out.println("🔍 Authentication: " + authentication);
 
         if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
             return ResponseEntity.status(401).body("No active session. Please log in.");
