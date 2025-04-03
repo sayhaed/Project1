@@ -56,7 +56,7 @@ private String getMail(){
         }
         return true;}
 /// //////Crete loans
-    @GetMapping()
+    @PostMapping()
     public ResponseEntity<LoanApplication>
 //    public LoanApplication
     createLoan(HttpSession session, @Valid @RequestBody LoanApplicationDTO loanApplicationDTO) {
